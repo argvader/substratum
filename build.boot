@@ -15,3 +15,13 @@
                   [com.cemerick/friend         "0.2.1"]
                   [overtone/at-at              "1.2.0"]
                   [environ                     "1.0.2"]])
+
+(require '[substratum.core :as substratum.core]
+         '[danielsz.boot-environ :refer [environ]])
+
+(deftask spike []
+  (comp
+    (environ :env {:kafka-port 9092})
+    (with-pre-wrap fileset
+      (substratum.core/-main)
+      fileset)))
